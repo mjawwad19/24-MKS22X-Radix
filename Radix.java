@@ -22,9 +22,18 @@ public class Radix{
         buckets[i].extend(buckets[i+1]);
       }
       //System.out.println(buckets[0]); //after first pass shows: 123, 1234, 14, 12345, 123456 correctly so linking is done
+      transfer(buckets[0], data);
+      System.out.println(Arrays.toString(data));
     }
   }
-
+  
+  private static void transfer(MyLinkedList<Integer> bucket, int[] data) {
+    int i = 0;
+    while (bucket.size() != 0) {
+      data[i] = bucket.removeFront();
+      i++;
+    }
+  }
   //gets the digit at a certain digit place
   public static int getDigit(int n, int place) {
     return (int)(n / Math.pow(10, place)) % 10;
