@@ -3,35 +3,42 @@ public class Radix{
   @SuppressWarnings({"unchecked", "rawtypes"})
   public static void radixsort(int[] data) {
     MyLinkedList<Integer>[] buckets = new MyLinkedList[10];
-    for (int i = 0; i < 10; i++) {
-      buckets[i] = new MyLinkedList<Integer>();
-    }
-
+    makeBuckets(buckets);
     int max = maxPlaces(data);
     for (int currPlace = 0; currPlace < max; currPlace++) {
-    //while (currPlace <= max) {
-      //fill the appropriate list in buckets
-      for (int num: data) {
-        int dig = getDigit(num, currPlace);
-        //System.out.println(dig);
-        buckets[dig].add(num);
-        //System.out.println(buckets[dig]);
-      }
-      //links up the filled buckets.
-      for (int i = buckets.length - 2; i >= 0; i--) {
-        buckets[i].extend(buckets[i+1]);
-      }
-      //System.out.println(buckets[0]); //after first pass shows: 123, 1234, 14, 12345, 123456 correctly so linking is done
+      sortPlace(data, currPlace, buckets);
+      link(buckets);
       transfer(buckets[0], data);
       System.out.println(Arrays.toString(data));
     }
   }
-  
+  //initializes bucket for each digit
+  private static void makeBuckets(MyLinkedList<Integer>[] b) {
+    for (int i = 0; i < 10; i++) {
+      b[i] = new MyLinkedList<Integer>();
+    }
+  }
+  //transfers a linked list values into data
   private static void transfer(MyLinkedList<Integer> bucket, int[] data) {
     int i = 0;
     while (bucket.size() != 0) {
       data[i] = bucket.removeFront();
       i++;
+    }
+  }
+  //links up the filled buckets.
+  private static void link(MyLinkedList<Integer>[] buckets) {
+    for (int i = buckets.length - 2; i >= 0; i--) {
+      buckets[i].extend(buckets[i+1]);
+    }
+  }
+  //fill the appropriate list in buckets
+  private static void sortPlace(int[] data, int place, MyLinkedList<Integer>[] buckets) {
+    for (int num: data) {
+      int dig = getDigit(num, place);
+      //System.out.println(dig);
+      buckets[dig].add(num);
+      //System.out.println(buckets[dig]);
     }
   }
   //gets the digit at a certain digit place
