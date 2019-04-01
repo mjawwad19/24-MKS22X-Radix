@@ -1,10 +1,21 @@
 public class Radix{
   @SuppressWarnings({"unchecked", "rawtypes"})
   public static void radixsort(int[] data) {
-    MyLinkedList<Integer>[] buckets = new MyLinkedList[10];
+    MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
     for (int i = 0; i < 10; i++) {
       buckets[i] = new MyLinkedList<Integer>();
-      //this via the diagram K showed me means there will be space for all @ current place that fall under the same number, i.e. 11/1/21 etc.
+    }
+
+    int max = maxPlaces(data);
+    int currPlace = 0;
+    while (currPlace != max) {
+      //fill the appropriate list in buckets
+      for (int num: data) {
+        int dig = getDigit(num, currPlace);
+        if (num < 0) buckets[9 - dig].add(num); //for negative
+        else buckets[10 + dig].add(num); //for positive
+      }
+
     }
   }
   //gets the digit at a certain digit place
@@ -30,8 +41,9 @@ public class Radix{
     System.out.println(getDigit(123, 0)); //3
     System.out.println(getDigit(1234, 1)); //3
     System.out.println(getDigit(1234, 3)); //1
-    int[] ary = {123, 1234, 12345, -123456};
+    int[] ary = {123, 1234, 12345, 123456};
     System.out.println(maxPlaces(ary)); //6
+    //radixsort(ary);
   }
 
 
