@@ -1,21 +1,21 @@
 import java.util.List;
 
-public class MyLinkedList{
+public class MyLinkedList<E>{
   private class Node {
-  private Integer data;
+  private E data;
   private Node next, prev;
   //create a Node given a value
-  public Node(Integer value) {
+  public Node(E value) {
     data = value;
   }
   //create a Node that specifies the reference (or none) of the previous and future node
-  public Node(Integer value, Node nextNode, Node prevNode) {
+  public Node(E value, Node nextNode, Node prevNode) {
     data = value;
     next = nextNode;
     prev = prevNode;
   }
   //Helping to see vals (we're gonna need this for toString too)
-  public Integer getData() {
+  public E getData() {
     return data;
   }
   //this only falls into place cuz everything is private
@@ -26,8 +26,8 @@ public class MyLinkedList{
   public Node prev() {
     return prev;
   }
-  public Integer setData(Integer i) {
-    Integer temp = data;
+  public E setData(E i) {
+    E temp = data;
     data = i;
     return temp;
   }
@@ -100,7 +100,7 @@ public class MyLinkedList{
 
   /*Appends the specified Integer to the end of this list.
   *@param value is the Integer to be added.*/
-  public boolean add(Integer value){
+  public boolean add(E value){
     Node n = new Node(value, null, end);
     if (end == null) start = n;
     else end.setNext(n);
@@ -111,7 +111,7 @@ public class MyLinkedList{
 
   /*Returns the Integer at the specified position in this list.
   *@param index is the specified position*/
-  public Integer get(int index){
+  public E get(int index){
     return getNthNode(index).getData();
   }
 
@@ -119,9 +119,9 @@ public class MyLinkedList{
   with the specified Integer.
   *@param index is the specified position
   *@param value is the Integer that will replace */
-  public Integer set(int index, Integer value){
+  public E set(int index, E value){
     Node mod = getNthNode(index); //I love it when I can keep reusing getNthNode
-    Integer tempData = mod.getData();
+    E tempData = mod.getData();
     mod.setData(value);
     //utilizing Node's setData, we can change any node in the linkedList given an integer
     return tempData; //we MUST return the data before it was changed!
@@ -129,7 +129,7 @@ public class MyLinkedList{
 
   /*Returns true if this list contains the specified Integer
   *@param value is the specified Integer*/
-  public boolean contains(Integer value){
+  public boolean contains(E value){
     for (int i = 0; i < size(); i++) {
       if (getNthNode(i).getData().equals(value)) return true;
     }
@@ -139,7 +139,7 @@ public class MyLinkedList{
   /*Returns the index of the first occurrence of the specified Integer in this list,
     or -1 if this list does not contain the Integer.
   *@param value is the specified Integer*/
-  public int indexOf(Integer value){
+  public int indexOf(E value){
     for (int i = 0; i < size(); i++) {
       if (getNthNode(i).getData().equals(value)) return i;
     }
@@ -148,7 +148,7 @@ public class MyLinkedList{
 
   /*Removes and returns the Integer at the specified position in this list.
   *@param index is the specified position*/
-  public Integer remove(int index){
+  public E remove(int index){
     if (index < 0 || index >= size()) throw new IndexOutOfBoundsException();
     Node temp = getNthNode(index);
     Node nex = temp.next();
@@ -174,7 +174,7 @@ public class MyLinkedList{
   /*Removes the specified integer from this list.
   - Returns true if successfully removed, false otherwise.
   *@param value is the Integer to be removed.*/
-  public boolean remove(Integer value){
+  public boolean remove(E value){
     //screw it i'm doing the work in remove index
     if (!contains(value)) return false;
     int index = indexOf(value);
@@ -185,7 +185,7 @@ public class MyLinkedList{
   /*Inserts the specified Integer at the specified position in this list.
   *@param index is the specified position
   *@param value is the specifed Integer to be inserted.*/
-  public void add (int index, Integer value){
+  public void add (int index, E value){
     if (index < 0 || index > size())
        throw new IndexOutOfBoundsException();
     Node temp;
