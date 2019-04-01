@@ -17,6 +17,11 @@ public class Radix{
         buckets[dig].add(num);
         //System.out.println(buckets[dig]);
       }
+      //links up the filled buckets.
+      for (int i = buckets.length - 2; i >= 0; i--) {
+        buckets[i].extend(buckets[i+1]);
+      }
+      //System.out.println(buckets[0]); //after first pass shows: 123, 1234, 14, 12345, 123456 correctly so linking is done
     }
   }
 
