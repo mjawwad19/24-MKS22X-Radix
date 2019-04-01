@@ -108,7 +108,7 @@ public class MyLinkedList<E>{
    // The size of other is reduced to 0
    // the size of this is now the combined sizes of both original lists
   *@param other is the other LinkedList*/
-  public void extend(MyLinkedList other) {
+  public void extend(MyLinkedList<E> other) {
     if (length == 0) start = other.start; // worse case scenario, this is empty
     else if (other.length == 0) other.end = end; // same cases
     else {
