@@ -47,25 +47,26 @@ public class Radix{
     }
   }
   //gets the digit at a certain digit place
-  public static int getDigit(int n, int place) {
+  private static int getDigit(int n, int place) {
     return (int)(n / Math.pow(10, place)) % 10;
   }
   //finds the longest number (most places) in an array
-  public static int maxPlaces(int[] data) {
+  private static int maxPlaces(int[] data) {
     int m = 0;
     for (int n: data) {
-      int temp = n;
+      /*int temp = n;
       int count = 0;
       while (temp != 0) {
         count++;
         temp = temp/10;
-      }
+      }*/
+      int count = ("" + Math.abs(n)).length();
       if (count > m) m = count;
     }
     return m;
   }
 
-  public static void main(String[] args) {
+  /*public static void main(String[] args) {
     System.out.println(getDigit(123, 0)); //3
     System.out.println(getDigit(1234, 1)); //3
     System.out.println(getDigit(1234, 3)); //1
@@ -77,5 +78,5 @@ public class Radix{
     //sorted should be -214956 -24, -12, -2, 12, 384, 120412}
     radixsort(aryb);
     System.out.println(Arrays.toString(aryb));
-  }
+  }*/
 }
