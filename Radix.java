@@ -2,19 +2,19 @@ import java.util.*;
 public class Radix{
   @SuppressWarnings({"unchecked", "rawtypes"})
   public static void radixsort(int[] data) {
-    MyLinkedList<Integer>[] buckets = new MyLinkedList[10];
+    MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
     makeBuckets(buckets);
     int max = maxPlaces(data);
-    for (int currPlace = 0; currPlace < max; currPlace++) {
+    for (int currPlace = 0; currPlace <= max; currPlace++) {
       sortPlace(data, currPlace, buckets);
       link(buckets);
       transfer(buckets[0], data);
-      System.out.println(Arrays.toString(data));
+      //System.out.println(Arrays.toString(data));
     }
   }
   //initializes bucket for each digit
   private static void makeBuckets(MyLinkedList<Integer>[] b) {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 20; i++) {
       b[i] = new MyLinkedList<Integer>();
     }
   }
@@ -37,8 +37,13 @@ public class Radix{
     for (int num: data) {
       int dig = getDigit(num, place);
       //System.out.println(dig);
-      buckets[dig].add(num);
+      if (num < 0) {
+        buckets[9 - Math.abs(dig)].add(num);
+      }
+      else {
+      buckets[10 + Math.abs(dig)].add(num);
       //System.out.println(buckets[dig]);
+    }
     }
   }
   //gets the digit at a certain digit place
@@ -67,6 +72,10 @@ public class Radix{
     int[] ary = {123, 1234, 12345, 123456, 14};
     System.out.println(maxPlaces(ary)); //6
     radixsort(ary);
-    System.out.println(Arrays.toString(ary));
+    //System.out.println(Arrays.toString(ary));
+    int[] aryb = {-2, 12, -24, 384, 120412, -214956, -12};
+    //sorted should be -214956 -24, -12, -2, 12, 384, 120412}
+    radixsort(aryb);
+    System.out.println(Arrays.toString(aryb));
   }
 }
